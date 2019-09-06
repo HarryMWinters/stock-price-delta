@@ -22,6 +22,16 @@ export default {
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  background: #bcffdb;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
 }
