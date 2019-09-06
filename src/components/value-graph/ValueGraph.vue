@@ -6,9 +6,9 @@
 
 <script>
 export default {
-  name: "Nav",
+  name: "ValueGraph",
   props: {
-    msg: String
+    // large: Boolean
   }
 };
 </script>
@@ -17,5 +17,11 @@ export default {
 .ValueGraph {
   background: #999;
   margin: 1rem;
+  height: 10em;
+}
+
+.large {
+  margin: 1rem;
+  height: 17em;
 }
 </style>

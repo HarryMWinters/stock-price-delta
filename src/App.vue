@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Nav />
-    <ValueGraph type="aggregate large" />
+    <ValueGraph class="large" />
     <ControlPanel />
   </div>
 </template>

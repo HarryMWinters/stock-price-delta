@@ -1,13 +1,17 @@
 <template>
   <div class="ControlPanel">
     <StockPicker />
-    <ValueGraph type="individual small" />
+    <div class="col">
+      <ValueGraph />
+      <ValueReadout />
+    </div>
   </div>
 </template>
 
 <script>
 import StockPicker from "../stock-picker/StockPicker.vue";
 import ValueGraph from "../value-graph/ValueGraph.vue";
+import ValueReadout from "./value-readout/ValueReadout.vue";
 
 export default {
   name: "ControlPanel",
@@ -26,5 +30,10 @@ export default {
 .ControlPanel {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.col {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
 }
 </style>
