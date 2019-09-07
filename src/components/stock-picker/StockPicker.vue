@@ -40,7 +40,7 @@ export default {
         event.srcElement.value = "";
       }
     },
-    submitStock: function(event) {
+    submitStock: function() {
       const symbol = document
         .getElementById("stockInputField")
         .value.toUpperCase();
@@ -69,7 +69,7 @@ export default {
                 ]
             });
           })
-          .catch(error => {
+          .catch(() => {
             this.stocks.push({
               symbol: symbol,
               initialSharePrice: null,
