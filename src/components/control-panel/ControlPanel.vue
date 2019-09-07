@@ -1,6 +1,6 @@
 <template>
   <div class="ControlPanel">
-    <StockPicker v-bind:stocks="stocks" />
+    <StockPicker v-bind:stocks="stocks" v-bind:dates="dates" />
     <div class="col">
       <ValueGraph />
       <ValueReadout />
@@ -16,7 +16,8 @@ import ValueReadout from "./value-readout/ValueReadout.vue";
 export default {
   name: "ControlPanel",
   props: {
-    stocks: Object
+    stocks: Array,
+    dates: Object
   },
   components: {
     StockPicker,

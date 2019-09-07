@@ -2,7 +2,7 @@
   <div id="app">
     <Nav />
     <ValueGraph class="large" />
-    <ControlPanel v-bind:stocks="stocks" />
+    <ControlPanel v-bind:stocks="stocks" v-bind:dates="dates" />
   </div>
 </template>
 
@@ -20,13 +20,12 @@ export default {
   },
   data() {
     return {
-      stocks: [
-        { symbol: "VSATX", initialSharePrice: 1, finalSharePrice: 2 },
-        { symbol: "VMATX", initialSharePrice: 1, finalSharePrice: 2 },
-        { symbol: "VWESX", initialSharePrice: 1, finalSharePrice: 2 }
-      ],
-      initialDate: "2019-03-01",
-      finaldate: "2019-07-02"
+      stocks: [],
+
+      dates: {
+        initial: "2019-07-01",
+        final: "2019-07-02"
+      }
     };
   }
 };
@@ -34,13 +33,19 @@ export default {
 
 <style>
 * {
+  --black: #020202;
+  --eggshell: #f1f7ed;
+  --lime: #8edce6;
+  --grey: #454545;
+  --forest: #4f9d69;
+
   margin: 0;
   padding: 0;
 }
 
 body {
   height: 100%;
-  background: #4f9d69;
+  background: var(--eggshell);
 }
 
 #app {

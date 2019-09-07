@@ -10,24 +10,86 @@
       </thead>
       <tr v-bind:key="stock.name" v-for="stock in stocks">
         <td>{{stock.symbol}}</td>
+        <td v-if="stock.errMsg" class="errorMsg">Unable to retrieve data.</td>
         <td>{{stock.initialSharePrice}}</td>
-        <td>{{stock.initialSharePrice}}</td>
+        <td>{{stock.finalSharePrice}}</td>
+        <td v-on:click="deleteStock(stock)">x</td>
       </tr>
     </table>
     <div id="newStock">
-      <button>
+      <button v-on:click="submitStock">
         <img src="@/assets/add.png" />
       </button>
-      <input type="text" value="Search ticker symbol." />
+      <input type="text" id="stockInputField" value="Search ticker symbol." v-on:focus="clearInput" />
     </div>
   </div>
 </template>
 
 <script>
+const axios = require("axios");
+
 export default {
   name: "StockPicker",
   props: {
-    stocks: Array
+    stocks: Array,
+    dates: Object
+  },
+  methods: {
+    clearInput: function(event) {
+      if (event.srcElement.value == event.srcElement.defaultValue) {
+        event.srcElement.value = "";
+      }
+    },
+    submitStock: function(event) {
+      const symbol = document
+        .getElementById("stockInputField")
+        .value.toUpperCase();
+      document.getElementById("stockInputField").value = symbol;
+      const apikey = "9TYZNYNMGKH18KZ7";
+
+      if (symbol) {
+        axios
+          .get("https://www.alphavantage.co/query", {
+            params: {
+              function: "TIME_SERIES_DAILY",
+              symbol: symbol,
+              apikey: apikey
+            }
+          })
+          .then(response => {
+            this.stocks.push({
+              symbol: symbol,
+              initialSharePrice:
+                response.data["Time Series (Daily)"][this.dates.initial][
+                  "1. open"
+                ],
+              finalSharePrice:
+                response.data["Time Series (Daily)"][this.dates.final][
+                  "4. close"
+                ]
+            });
+          })
+          .catch(error => {
+            this.stocks.push({
+              symbol: symbol,
+              initialSharePrice: null,
+              finalSharePrice: null,
+              errMsg:
+                "Unable to retrieve data for " +
+                symbol +
+                " in range " +
+                this.dates.initial +
+                " to " +
+                this.dates.final +
+                "."
+            });
+          });
+      }
+    },
+    deleteStock: function(targetStock) {
+      const index = this.stocks.map(s => s.symbol).indexOf(targetStock.symbol);
+      this.stocks.splice(index, 1);
+    }
   }
 };
 </script>
@@ -39,7 +101,8 @@ export default {
 }
 
 .StockPicker {
-  background: #bcffde;
+  background: var(--eggshell);
+  border: 0.1em var(--grey) solid;
   margin: 1rem;
   padding: 0;
   height: 22em;
@@ -77,7 +140,7 @@ img {
 button {
   border-radius: 10%;
   padding: 1em;
-  background: inherit;
+  background: var(--lime);
   border: none;
   cursor: pointer;
   outline: none;
@@ -90,11 +153,10 @@ button:active {
 
 input {
   background: transparent;
-  height: 4em;
+  font-size: 1.5em;
   margin: 0rem;
   margin-left: 0.5rem;
   font-weight: 600;
-  padding: 0.2em;
   padding-left: 0.5em;
   border: 3px solid #454545;
 }
@@ -104,5 +166,10 @@ input {
   display: flex;
   flex-direction: row;
   width: 60%;
+}
+
+.errorMsg {
+  color: red;
+  font-weight: 900;
 }
 </style>
