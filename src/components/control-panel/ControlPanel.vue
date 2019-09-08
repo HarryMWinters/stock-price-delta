@@ -2,7 +2,7 @@
   <div class="ControlPanel">
     <StockPicker v-bind:stocks="stocks" v-bind:dates="dates" />
     <div class="col">
-      <ValueGraph />
+      <SingleGraph />
       <ValueReadout />
     </div>
   </div>
@@ -10,7 +10,7 @@
 
 <script>
 import StockPicker from "../stock-picker/StockPicker.vue";
-import ValueGraph from "../value-graph/ValueGraph.vue";
+import SingleGraph from "./single-graph/SingleGraph.vue";
 import ValueReadout from "./value-readout/ValueReadout.vue";
 
 export default {
@@ -21,7 +21,7 @@ export default {
   },
   components: {
     StockPicker,
-    ValueGraph,
+    SingleGraph,
     ValueReadout
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Nav />
-    <ValueGraph class="large" />
+    <MultiGraph />
     <ControlPanel v-bind:stocks="stocks" v-bind:dates="dates" />
   </div>
 </template>
@@ -9,25 +9,18 @@
 <script>
 import Nav from "./components/nav//Nav.vue";
 import ControlPanel from "./components/control-panel/ControlPanel.vue";
-import ValueGraph from "./components/value-graph/ValueGraph.vue";
+import MultiGraph from "./components/mutli-graph/MultiGraph.vue";
 
 export default {
   name: "app",
   components: {
     Nav,
-    ValueGraph,
+    MultiGraph,
     ControlPanel
   },
   data() {
     return {
-      stocks: [
-        {
-          symbol: "GOOG",
-          initialSharePrice: 12.0,
-          finalSharePrice: 13.0,
-          priceArray: [12.0, 15.0, 13.0]
-        }
-      ],
+      stocks: [],
       dates: {
         initial: "2019-07-01",
         final: "2019-07-02"
