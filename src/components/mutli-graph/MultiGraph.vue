@@ -1,60 +1,44 @@
 <template>
-  <v-chart :options="polar" />
+  <v-chart v-if="stocks" :options="stackedChart" autoresize />
 </template>
 
 <script>
 import ECharts from "vue-echarts";
-import "echarts/lib/chart/line";
-import "echarts/lib/component/polar";
+import "echarts";
 
 export default {
   name: "MultiGraph",
   components: {
     "v-chart": ECharts
   },
+  props: { stocks: Array },
   data() {
-    let data = [];
-
-    for (let i = 0; i <= 360; i++) {
-      let t = (i / 180) * Math.PI;
-      let r = Math.sin(2 * t) * Math.cos(2 * t);
-      data.push([r, i]);
-    }
-
     return {
-      polar: {
+      stackedChart: {
         title: {
-          text: "极坐标双数值轴"
+          text: "Price over time"
         },
-        legend: {
-          data: ["line"]
-        },
-        polar: {
-          center: ["50%", "54%"]
-        },
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            type: "cross"
-          }
-        },
-        angleAxis: {
-          type: "value",
-          startAngle: 0
-        },
-        radiusAxis: {
-          min: 0
-        },
-        series: [
+        xAxis: [
           {
-            coordinateSystem: "polar",
-            name: "line",
-            type: "line",
-            showSymbol: false,
-            data: data
+            type: "category",
+            boundaryGap: false,
+            data: ["Foo", "周二", "周三", "周四", "周五", "周六", "周日"]
           }
         ],
-        animationDuration: 2000
+        yAxis: [
+          {
+            type: "value"
+          }
+        ],
+        series: this.stocks.map(stock => {
+          return {
+            name: stock.symbol,
+            type: "line",
+            stack: "none",
+            areaStyle: {},
+            data: stock.priceArray
+          };
+        })
       }
     };
   }
@@ -63,9 +47,9 @@ export default {
 
 <style scoped>
 .echarts {
-  padding: 0;
+  padding: 0.2em;
   width: 100%;
-  margin: 1rem;
+  margin: 0rem;
   height: 17em;
 }
 </style>
