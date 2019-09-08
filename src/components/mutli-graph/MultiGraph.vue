@@ -11,7 +11,7 @@ export default {
   components: {
     "v-chart": ECharts
   },
-  props: { stocks: Array },
+  props: { stocks: Array, dates: Object },
   data() {
     return {
       stackedChart: {
@@ -20,14 +20,18 @@ export default {
         },
         xAxis: [
           {
-            type: "category",
-            boundaryGap: false,
-            data: ["Foo", "周二", "周三", "周四", "周五", "周六", "周日"]
+            type: "time",
+            name: "Date",
+            min: "dataMin",
+            max: "dataMax"
           }
         ],
         yAxis: [
           {
-            type: "value"
+            type: "value",
+            name: "Value ($)",
+            min: "0",
+            max: "dataMax"
           }
         ],
         series: this.stocks.map(stock => {
@@ -36,13 +40,16 @@ export default {
             type: "line",
             stack: "none",
             areaStyle: {},
-            data: stock.priceArray
+            data: stock.priceArray.map(day => {
+              return [day[1], day[0]];
+            })
           };
         })
       }
     };
   }
 };
+console.log("foo");
 </script>
 
 <style scoped>

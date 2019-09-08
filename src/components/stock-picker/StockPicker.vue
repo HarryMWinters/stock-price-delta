@@ -70,17 +70,20 @@ export default {
           .then(response => {
             const dates = Object.keys(response.data["Time Series (Daily)"]);
             let stockPrices = dates.map(date => {
-              return Number(
-                response.data["Time Series (Daily)"][date]["4. close"],
-                2
-              );
+              return [
+                Number(
+                  response.data["Time Series (Daily)"][date]["4. close"],
+                  2
+                ),
+                date
+              ];
             });
 
             this.stocks.push({
               symbol: symbol,
               initialSharePrice: Number(
                 response.data["Time Series (Daily)"][this.dates.initial][
-                  "1. open"
+                  "4. close"
                 ]
               ).toFixed(2),
               finalSharePrice: Number(
