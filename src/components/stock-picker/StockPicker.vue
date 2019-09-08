@@ -68,6 +68,14 @@ export default {
             }
           })
           .then(response => {
+            const dates = Object.keys(response.data["Time Series (Daily)"]);
+            let stockPrices = dates.map(date => {
+              return Number(
+                response.data["Time Series (Daily)"][date]["4. close"],
+                2
+              );
+            });
+
             this.stocks.push({
               symbol: symbol,
               initialSharePrice: Number(
@@ -79,7 +87,8 @@ export default {
                 response.data["Time Series (Daily)"][this.dates.final][
                   "4. close"
                 ]
-              ).toFixed(2)
+              ).toFixed(2),
+              priceArray: stockPrices
             });
           })
           .catch(() => {
@@ -99,6 +108,7 @@ export default {
           });
       }
     },
+
     deleteStock: function(targetStock) {
       const index = this.stocks.map(s => s.symbol).indexOf(targetStock.symbol);
       this.stocks.splice(index, 1);

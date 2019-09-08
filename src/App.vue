@@ -20,8 +20,14 @@ export default {
   },
   data() {
     return {
-      stocks: [],
-
+      stocks: [
+        {
+          symbol: "GOOG",
+          initialSharePrice: 12.0,
+          finalSharePrice: 13.0,
+          priceArray: [12.0, 15.0, 13.0]
+        }
+      ],
       dates: {
         initial: "2019-07-01",
         final: "2019-07-02"
