@@ -11,16 +11,22 @@
       <tr v-bind:key="stock.name" v-for="stock in stocks">
         <td>{{stock.symbol}}</td>
         <td v-if="stock.errMsg" class="errorMsg">Unable to retrieve data.</td>
-        <td>{{stock.initialSharePrice}}</td>
-        <td>{{stock.finalSharePrice}}</td>
-        <td v-on:click="deleteStock(stock)">x</td>
+        <td v-if="!stock.errMsg">$ {{stock.initialSharePrice}}</td>
+        <td v-if="!stock.errMsg">$ {{stock.finalSharePrice}}</td>
+        <td v-on:click="deleteStock(stock)" id="deleteButton">x</td>
       </tr>
     </table>
     <div id="newStock">
       <button v-on:click="submitStock">
         <img src="@/assets/add.png" />
       </button>
-      <input type="text" id="stockInputField" value="Search ticker symbol." v-on:focus="clearInput" />
+      <input
+        type="text"
+        id="stockInputField"
+        value="Search ticker symbol."
+        v-on:focus="clearInput"
+        v-on:keydown.enter="submitStock"
+      />
     </div>
   </div>
 </template>
@@ -44,10 +50,15 @@ export default {
       const symbol = document
         .getElementById("stockInputField")
         .value.toUpperCase();
-      document.getElementById("stockInputField").value = symbol;
+      document.getElementById("stockInputField").value =
+        symbol == "SEARCH TICKER SYMBOL." ? "Search ticker symbol" : symbol;
       const apikey = "9TYZNYNMGKH18KZ7";
 
-      if (symbol) {
+      if (
+        symbol &&
+        symbol != "SEARCH TICKER SYMBOL." &&
+        this.stocks.map(s => s.symbol).indexOf(symbol) == -1
+      ) {
         axios
           .get("https://www.alphavantage.co/query", {
             params: {
@@ -59,14 +70,16 @@ export default {
           .then(response => {
             this.stocks.push({
               symbol: symbol,
-              initialSharePrice:
+              initialSharePrice: Number(
                 response.data["Time Series (Daily)"][this.dates.initial][
                   "1. open"
-                ],
-              finalSharePrice:
+                ]
+              ).toFixed(2),
+              finalSharePrice: Number(
                 response.data["Time Series (Daily)"][this.dates.final][
                   "4. close"
                 ]
+              ).toFixed(2)
             });
           })
           .catch(() => {
@@ -101,12 +114,11 @@ export default {
 }
 
 .StockPicker {
-  background: var(--eggshell);
-  border: 0.1em var(--grey) solid;
+  background: var(--bg-element);
+  border: 1px var(--border) solid;
   margin: 1rem;
   padding: 0;
   height: 22em;
-  border-radius: 5%;
 }
 
 table {
@@ -135,16 +147,15 @@ td {
 img {
   height: 2em;
   width: 2em;
-  border-radius: 50%;
 }
+
 button {
-  border-radius: 10%;
   padding: 1em;
-  background: var(--lime);
   border: none;
   cursor: pointer;
   outline: none;
-  border: 3px #454545 solid;
+  border: 1px var(--border) solid;
+  margin-left: 1em;
 }
 
 button:active {
@@ -152,13 +163,11 @@ button:active {
 }
 
 input {
-  background: transparent;
   font-size: 1.5em;
   margin: 0rem;
   margin-left: 0.5rem;
   font-weight: 600;
   padding-left: 0.5em;
-  border: 3px solid #454545;
 }
 
 #newStock {
@@ -171,5 +180,17 @@ input {
 .errorMsg {
   color: red;
   font-weight: 900;
+}
+
+#deleteButton {
+  color: red;
+  font-weight: 900;
+  margin: 1em;
+  height: 1em;
+  padding: 4px;
+}
+
+#deleteButton:hover {
+  cursor: pointer;
 }
 </style>

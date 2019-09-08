@@ -32,7 +32,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 * {
-  background-color: var(--lime);
+  background-color: #eeeeee;
   border: 0;
 }
 
@@ -55,7 +55,7 @@ export default {
 
 .bio {
   align-self: flex-start;
-  background: var(--black);
+  background: rgba(0, 0, 0, 0.755);
   color: var(--eggshell);
   align-self: flex-end;
   margin: 0em;
