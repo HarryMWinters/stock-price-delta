@@ -1,12 +1,19 @@
 <template>
   <div id="app">
     <Nav />
-    <MultiGraph v-bind:stocks="stocks" v-bind:dates="dates" />
-    <ControlPanel v-bind:stocks="stocks" v-bind:dates="dates" />
+    <MultiGraph v-bind:chart="stackedChart" />
+    <ControlPanel
+      v-bind:stocks="stocks"
+      v-bind:dates="dates"
+      v-bind:updater="stockUpdater"
+      v-bind:deleter="stockDeleter"
+    />
   </div>
 </template>
 
 <script>
+const axios = require("axios");
+
 import Nav from "./components/nav//Nav.vue";
 import ControlPanel from "./components/control-panel/ControlPanel.vue";
 import MultiGraph from "./components/mutli-graph/MultiGraph.vue";
@@ -17,6 +24,73 @@ export default {
     Nav,
     MultiGraph,
     ControlPanel
+  },
+
+  methods: {
+    stockUpdater: function(symbol) {
+      const apikey = "9TYZNYNMGKH18KZ7";
+      axios
+        .get("https://www.alphavantage.co/query", {
+          params: {
+            function: "TIME_SERIES_DAILY",
+            symbol: symbol,
+            apikey: apikey
+          }
+        })
+        .then(response => {
+          const dates = Object.keys(response.data["Time Series (Daily)"]);
+          let stockPrices = dates.map(date => {
+            return [
+              Number(response.data["Time Series (Daily)"][date]["4. close"], 2),
+              date
+            ];
+          });
+          this.stocks.push({
+            symbol: symbol,
+            initialSharePrice: Number(
+              response.data["Time Series (Daily)"][this.dates.initial][
+                "4. close"
+              ]
+            ).toFixed(2),
+            finalSharePrice: Number(
+              response.data["Time Series (Daily)"][this.dates.final]["4. close"]
+            ).toFixed(2),
+            priceArray: stockPrices
+          });
+          // Update graph info
+          this.stackedChart.series.push({
+            name: symbol,
+            type: "line",
+            stack: "none",
+            areaStyle: {},
+            data: Object.keys(response.data["Time Series (Daily)"]).map(day => {
+              return [
+                day,
+                response.data["Time Series (Daily)"][day]["4. close"]
+              ];
+            })
+          });
+        })
+        .catch(() => {
+          this.stocks.push({
+            symbol: symbol,
+            initialSharePrice: null,
+            finalSharePrice: null,
+            errMsg:
+              "Unable to retrieve data for " +
+              symbol +
+              " in range " +
+              this.dates.initial +
+              " to " +
+              this.dates.final +
+              "."
+          });
+        });
+    },
+    stockDeleter: function(targetStock) {
+      const index = this.stocks.map(s => s.symbol).indexOf(targetStock.symbol);
+      this.stocks.splice(index, 1);
+    }
   },
   data() {
     return {
@@ -239,6 +313,28 @@ export default {
       dates: {
         initial: "2019-07-01",
         final: "2019-07-02"
+      },
+      stackedChart: {
+        title: {
+          text: "Price over time"
+        },
+        xAxis: [
+          {
+            type: "time",
+            name: "Date",
+            min: "dataMin",
+            max: "dataMax"
+          }
+        ],
+        yAxis: [
+          {
+            type: "value",
+            name: "Value ($)",
+            min: "0",
+            max: "dataMax"
+          }
+        ],
+        series: []
       }
     };
   }

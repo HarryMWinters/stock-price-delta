@@ -1,5 +1,12 @@
 <template>
-  <v-chart v-if="stocks" :options="stackedChart" autoresize />
+  <div>
+    <div v-if="chart.series[0] != undefined">
+      <v-chart :options="chart" autoresize />
+    </div>
+    <div id="initialMessageBoard" v-else>
+      <h3>Enter a ticker symbol below to generate a graph.</h3>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -11,45 +18,8 @@ export default {
   components: {
     "v-chart": ECharts
   },
-  props: { stocks: Array, dates: Object },
-  data() {
-    return {
-      stackedChart: {
-        title: {
-          text: "Price over time"
-        },
-        xAxis: [
-          {
-            type: "time",
-            name: "Date",
-            min: "dataMin",
-            max: "dataMax"
-          }
-        ],
-        yAxis: [
-          {
-            type: "value",
-            name: "Value ($)",
-            min: "0",
-            max: "dataMax"
-          }
-        ],
-        series: this.stocks.map(stock => {
-          return {
-            name: stock.symbol,
-            type: "line",
-            stack: "none",
-            areaStyle: {},
-            data: stock.priceArray.map(day => {
-              return [day[1], day[0]];
-            })
-          };
-        })
-      }
-    };
-  }
+  props: { chart: Object }
 };
-console.log("foo");
 </script>
 
 <style scoped>
@@ -58,5 +28,12 @@ console.log("foo");
   width: 100%;
   margin: 0rem;
   height: 17em;
+}
+
+#initialMessageBoard {
+  padding: 1em;
+  width: 100%;
+  margin: 0rem;
+  height: 16em;
 }
 </style>

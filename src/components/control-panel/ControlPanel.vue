@@ -1,6 +1,11 @@
 <template>
   <div class="ControlPanel">
-    <StockPicker v-bind:stocks="stocks" v-bind:dates="dates" />
+    <StockPicker
+      v-bind:stocks="stocks"
+      v-bind:dates="dates"
+      v-bind:updater="updater"
+      v-bind:deleter="deleter"
+    />
     <div class="col">
       <SingleGraph />
       <ValueReadout />
@@ -17,7 +22,9 @@ export default {
   name: "ControlPanel",
   props: {
     stocks: Array,
-    dates: Object
+    dates: Object,
+    updater: Function,
+    deleter: Function
   },
   components: {
     StockPicker,

@@ -13,7 +13,7 @@
         <td v-if="stock.errMsg" class="errorMsg">Unable to retrieve data.</td>
         <td v-if="!stock.errMsg">$ {{stock.initialSharePrice}}</td>
         <td v-if="!stock.errMsg">$ {{stock.finalSharePrice}}</td>
-        <td v-on:click="deleteStock(stock)" id="deleteButton">x</td>
+        <td v-on:click="deleter(stock)" id="deleteButton">x</td>
       </tr>
     </table>
     <div id="newStock">
@@ -32,14 +32,15 @@
 </template>
 
 <script>
-const axios = require("axios");
-
 export default {
   name: "StockPicker",
   props: {
     stocks: Array,
-    dates: Object
+    dates: Object,
+    updater: Function,
+    deleter: Function
   },
+
   methods: {
     clearInput: function(event) {
       if (event.srcElement.value == event.srcElement.defaultValue) {
@@ -59,62 +60,8 @@ export default {
         symbol != "SEARCH TICKER SYMBOL." &&
         this.stocks.map(s => s.symbol).indexOf(symbol) == -1
       ) {
-        axios
-          .get("https://www.alphavantage.co/query", {
-            params: {
-              function: "TIME_SERIES_DAILY",
-              symbol: symbol,
-              apikey: apikey
-            }
-          })
-          .then(response => {
-            const dates = Object.keys(response.data["Time Series (Daily)"]);
-            let stockPrices = dates.map(date => {
-              return [
-                Number(
-                  response.data["Time Series (Daily)"][date]["4. close"],
-                  2
-                ),
-                date
-              ];
-            });
-
-            this.stocks.push({
-              symbol: symbol,
-              initialSharePrice: Number(
-                response.data["Time Series (Daily)"][this.dates.initial][
-                  "4. close"
-                ]
-              ).toFixed(2),
-              finalSharePrice: Number(
-                response.data["Time Series (Daily)"][this.dates.final][
-                  "4. close"
-                ]
-              ).toFixed(2),
-              priceArray: stockPrices
-            });
-          })
-          .catch(() => {
-            this.stocks.push({
-              symbol: symbol,
-              initialSharePrice: null,
-              finalSharePrice: null,
-              errMsg:
-                "Unable to retrieve data for " +
-                symbol +
-                " in range " +
-                this.dates.initial +
-                " to " +
-                this.dates.final +
-                "."
-            });
-          });
+        this.updater(symbol);
       }
-    },
-
-    deleteStock: function(targetStock) {
-      const index = this.stocks.map(s => s.symbol).indexOf(targetStock.symbol);
-      this.stocks.splice(index, 1);
     }
   }
 };
