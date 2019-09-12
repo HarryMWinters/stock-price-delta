@@ -7,7 +7,10 @@
       v-bind:deleter="deleter"
     />
     <div class="col">
-      <SingleGraph />
+      <DateSelectionBox
+        v-bind:intialDateUpdater="initialDateUpdater"
+        v-bind:finaldateUpdater="finalDateUpdater"
+      />
       <ValueReadout />
     </div>
   </div>
@@ -15,7 +18,7 @@
 
 <script>
 import StockPicker from "../stock-picker/StockPicker.vue";
-import SingleGraph from "./single-graph/SingleGraph.vue";
+import DateSelectionBox from "./date-selection/DateSelectorBox.vue";
 import ValueReadout from "./value-readout/ValueReadout.vue";
 
 export default {
@@ -24,12 +27,14 @@ export default {
     stocks: Array,
     dates: Object,
     updater: Function,
-    deleter: Function
+    deleter: Function,
+    initialDateUpdater: Function,
+    finalDateUpdater: Function
   },
   components: {
     StockPicker,
-    SingleGraph,
-    ValueReadout
+    ValueReadout,
+    DateSelectionBox
   }
 };
 </script>

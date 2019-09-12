@@ -7,6 +7,8 @@
       v-bind:dates="dates"
       v-bind:updater="stockUpdater"
       v-bind:deleter="stockDeleter"
+      v-bind:intialDateUpdater="initialDateUpdater"
+      v-bind:finaldateUpdater="finalDateUpdater"
     />
   </div>
 </template>
@@ -75,22 +77,22 @@ export default {
               }
             })
           });
+        })
+        .catch(() => {
+          this.stocks.push({
+            symbol: symbol,
+            initialSharePrice: null,
+            finalSharePrice: null,
+            errMsg:
+              "Unable to retrieve data for " +
+              symbol +
+              " in range " +
+              this.dates.initial +
+              " to " +
+              this.dates.final +
+              "."
+          });
         });
-      // .catch(() => {
-      //   this.stocks.push({
-      //     symbol: symbol,
-      //     initialSharePrice: null,
-      //     finalSharePrice: null,
-      //     errMsg:
-      //       "Unable to retrieve data for " +
-      //       symbol +
-      //       " in range " +
-      //       this.dates.initial +
-      //       " to " +
-      //       this.dates.final +
-      //       "."
-      //   });
-      // });
     },
     stockDeleter: function(targetStock) {
       const index = this.stocks.map(s => s.symbol).indexOf(targetStock.symbol);
