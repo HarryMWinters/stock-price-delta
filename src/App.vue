@@ -7,8 +7,8 @@
       v-bind:dates="dates"
       v-bind:updater="stockUpdater"
       v-bind:deleter="stockDeleter"
-      v-bind:intialDateUpdater="initialDateUpdater"
-      v-bind:finaldateUpdater="finalDateUpdater"
+      v-bind:initialDateUpdater="initialDateUpdater"
+      v-bind:finalDateUpdater="finalDateUpdater"
     />
   </div>
 </template>
@@ -77,22 +77,22 @@ export default {
               }
             })
           });
-        })
-        .catch(() => {
-          this.stocks.push({
-            symbol: symbol,
-            initialSharePrice: null,
-            finalSharePrice: null,
-            errMsg:
-              "Unable to retrieve data for " +
-              symbol +
-              " in range " +
-              this.dates.initial +
-              " to " +
-              this.dates.final +
-              "."
-          });
         });
+      // .catch(() => {
+      //   this.stocks.push({
+      //     symbol: symbol,
+      //     initialSharePrice: null,
+      //     finalSharePrice: null,
+      //     errMsg:
+      //       "Unable to retrieve data for " +
+      //       symbol +
+      //       " in range " +
+      //       this.dates.initial +
+      //       " to " +
+      //       this.dates.final +
+      //       "."
+      //   });
+      // });
     },
     stockDeleter: function(targetStock) {
       const index = this.stocks.map(s => s.symbol).indexOf(targetStock.symbol);
@@ -101,15 +101,19 @@ export default {
       this.stackedChart = Object.assign({}, this.stackedChart);
       // Have to fo this otherwise the layered histogram merges the states.
     },
-    initialDateUpdater: function(date) {},
-    finalDateUpdater: function(date) {}
+    initialDateUpdater: function(date) {
+      this.dates.initial = date.toISOString().slice(0, 10);
+    },
+    finalDateUpdater: function(date) {
+      this.dates.final = date.toISOString().slice(0, 10);
+    }
   },
   data() {
     return {
       stocks: [],
       dates: {
-        initial: "2019-06-07",
-        final: "2019-06-17"
+        initial: null,
+        final: null
       },
       stackedChart: {
         title: {

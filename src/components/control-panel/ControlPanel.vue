@@ -7,7 +7,7 @@
       v-bind:deleter="deleter"
     />
     <div class="col">
-      <DateRangeSelector
+      <DateRangePicker
         v-bind:intialDateUpdater="initialDateUpdater"
         v-bind:finaldateUpdater="finalDateUpdater"
       />
@@ -18,7 +18,7 @@
 
 <script>
 import StockPicker from "../stock-picker/StockPicker.vue";
-import DateRangeSelector from "./date-range-selector/DateRangeSelector.vue";
+import DateRangePicker from "./date-range-selector/DateRangeSelector.vue";
 import ValueReadout from "./value-readout/ValueReadout.vue";
 
 export default {
@@ -34,7 +34,7 @@ export default {
   components: {
     StockPicker,
     ValueReadout,
-    DateRangeSelector
+    DateRangePicker
   }
 };
 </script>

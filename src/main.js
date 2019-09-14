@@ -1,11 +1,9 @@
 import Vue from "vue";
 import App from "./App.vue";
-import VCalendar from "v-calendar";
-import "v-calendar/lib/v-calendar.min.css";
+import Buefy from "buefy";
+import "buefy/dist/buefy.css";
 
-Vue.use(VCalendar, {});
-
-Vue.config.productionTip = false;
+Vue.use(Buefy);
 
 new Vue({
   render: h => h(App)
