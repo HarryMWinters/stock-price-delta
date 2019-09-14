@@ -17,10 +17,10 @@
     <StockPicker
       v-bind:stocks="stocks"
       v-bind:dates="dates"
-      v-bind:updater="updater"
-      v-bind:deleter="deleter"
-      v-bind:intialDateUpdater="initialDateUpdater"
-      v-bind:finaldateUpdater="finalDateUpdater"
+      v-bind:updater="stockUpdater"
+      v-bind:deleter="stockDeleter"
+      v-bind:initialDateUpdater="initialDateUpdater"
+      v-bind:finalDateUpdater="finalDateUpdater"
     />
   </div>
 </template>

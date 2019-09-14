@@ -6,8 +6,8 @@
           <th>Ticker Symbol</th>
           <th>Initial Share Price</th>
           <th>Final Share Price</th>
-          <th>% Change</th>
-          <th>Dollar Change</th>
+          <th>Dollar Δ</th>
+          <th>% Δ</th>
         </tr>
       </thead>
       <tr v-bind:key="stock.name" v-for="stock in stocks">
@@ -15,7 +15,9 @@
         <td v-if="stock.errMsg" class="errorMsg">Unable to retrieve data.</td>
         <td v-if="!stock.errMsg">$ {{stock.initialSharePrice}}</td>
         <td v-if="!stock.errMsg">$ {{stock.finalSharePrice}}</td>
-        <td v-if="!stock.errMsg">$ {{stock.initialSharePrice - stock.finalSharePrice}}</td>
+        <td
+          v-if="!stock.errMsg"
+        >$ {{Math.round((stock.initialSharePrice - stock.finalSharePrice) * 100) / 100}}</td>
         <td v-if="!stock.errMsg">% {{percentageChange(stock)}}</td>
         <td v-on:click="deleter(stock)" id="deleteButton">x</td>
       </tr>
@@ -23,7 +25,7 @@
     <div id="rightBox">
       <DateRangePicker
         v-bind:intialDateUpdater="initialDateUpdater"
-        v-bind:finaldateUpdater="finalDateUpdater"
+        v-bind:finalDateUpdater="finalDateUpdater"
       />
       <StockSelector :submitStock="submitStock" />
     </div>
@@ -48,7 +50,6 @@ export default {
     StockSelector,
     DateRangePicker
   },
-
   methods: {
     submitStock: function() {
       const symbol = document
@@ -65,16 +66,13 @@ export default {
       ) {
         this.updater(symbol);
       }
-    }
-  },
-
-  computed: {
-    percentageChange(stock) {
-      return (
-        (stock.initialSharePrice -
-          stock.finalSharePrice / stock.initialSharePrice) *
-        100
-      );
+    },
+    percentageChange: function(stock) {
+      const percentage =
+        ((stock.initialSharePrice - stock.finalSharePrice) /
+          stock.initialSharePrice) *
+        100;
+      return Math.round(percentage * 100) / 100;
     }
   }
 };

@@ -18,7 +18,7 @@ export default {
   name: "DateRangePicker",
   props: {
     intialDateUpdater: Function,
-    finaldateUpdater: Function
+    finalDateUpdater: Function
   },
   data() {
     return {
@@ -39,7 +39,7 @@ export default {
   methods: {
     updateDates() {
       this.intialDateUpdater(this.dates[0]);
-      this.finaldateUpdater(this.dates[1]);
+      this.finalDateUpdater(this.dates[1]);
     }
   }
 };
