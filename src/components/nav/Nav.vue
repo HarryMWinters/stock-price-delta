@@ -1,22 +1,29 @@
 <template>
-  <nav class="Nav">
-    <button class="bio">About The Author</button>
-    <!-- <a
-      class="profesionalLink"
-      href="https://www.linkedin.com/in/code-bio/"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <img src="@/assets/linkedIn_logo_dark.png" />
-    </a>
-    <a
-      class="profesionalLink"
-      href="https://github.com/HarryMWinters"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <img src="@/assets/github_logo.png" />
-    </a>-->
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <img class="navbar-item" src="@/assets/bar-graph-with-dollar-sign.svg" />
+      <div class="navbar-item">
+        <h1>Stock Analyzer</h1>
+      </div>
+    </div>
+
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" @click="toggleIntro">About</a>
+        <a
+          class="navbar-item"
+          href="https://github.com/HarryMWinters"
+          rel="noopener noreferrer"
+          target="_blank"
+        >Github</a>
+        <a
+          class="navbar-item"
+          href="https://www.linkedin.com/in/code-bio/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >LinkedIn</a>
+      </div>
+    </div>
   </nav>
 </template>
 
@@ -24,61 +31,23 @@
 export default {
   name: "Nav",
   props: {
-    msg: String
+    toggleIntro: Function
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 * {
   background-color: #eeeeee;
   border: 0;
   margin: 0;
 }
-/* 
-a {
-  padding: 0;
-  margin: 0;
+
+h1 {
+  font-weight: 900;
 }
 
-img {
-  height: 2rem;
-  border-radius: 0.75em;
-  padding: 0em;
-  margin: 0em;
-} */
-
-.Nav {
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-  width: 100%;
-  height: 3em;
-}
-
-.profesionalLink {
-  align-self: flex-end;
-  margin: 0rem;
-  padding: 0rem;
-  height: 1.5rem;
-  width: 10%;
-  min-width: 4rem;
-}
-
-.bio {
-  align-self: flex-start;
-  background: rgba(0, 0, 0, 0.755);
-  color: var(--eggshell);
-  align-self: flex-end;
-  margin: 0em;
-  padding: 0em;
-  margin-right: auto;
-  height: 100%;
-  padding: 0;
-  width: 20%;
-  min-width: 12rem;
-  font-weight: bolder;
-  font-size: 1em;
+#introText {
+  background-color: inherit;
 }
 </style>

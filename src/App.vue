@@ -1,7 +1,19 @@
 <template>
   <div id="app">
-    <Nav />
-    <MultiGraph v-bind:chart="stackedChart" />
+    <Nav v-bind:toggleIntro="toggleIntro" />
+    <article v-if="showIntro" class="message is-dark">
+      <div class="message-header">
+        <p id="introText">About this App</p>
+        <button class="delete" aria-label="delete" @click="toggleIntro"></button>
+      </div>
+      <div class="message-body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum
+        <a>felis venenatis</a> efficitur. Aenean ac
+        <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
+      </div>
+    </article>
+    <MultiGraph v-else v-bind:chart="stackedChart" />
     <StockPicker
       v-bind:stocks="stocks"
       v-bind:dates="dates"
@@ -29,6 +41,9 @@ export default {
   },
 
   methods: {
+    toggleIntro: function() {
+      this.showIntro = !this.showIntro;
+    },
     stockUpdater: function(symbol) {
       const apikey = "9TYZNYNMGKH18KZ7";
       axios
@@ -110,6 +125,7 @@ export default {
   },
   data() {
     return {
+      showIntro: true,
       stocks: [],
       dates: {
         initial: null,
