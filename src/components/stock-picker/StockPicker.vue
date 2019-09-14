@@ -6,6 +6,8 @@
           <th>Ticker Symbol</th>
           <th>Initial Share Price</th>
           <th>Final Share Price</th>
+          <th>% Change</th>
+          <th>Dollar Change</th>
         </tr>
       </thead>
       <tr v-bind:key="stock.name" v-for="stock in stocks">
@@ -13,40 +15,41 @@
         <td v-if="stock.errMsg" class="errorMsg">Unable to retrieve data.</td>
         <td v-if="!stock.errMsg">$ {{stock.initialSharePrice}}</td>
         <td v-if="!stock.errMsg">$ {{stock.finalSharePrice}}</td>
+        <td v-if="!stock.errMsg">$ {{stock.initialSharePrice - stock.finalSharePrice}}</td>
+        <td v-if="!stock.errMsg">% {{percentageChange(stock)}}</td>
         <td v-on:click="deleter(stock)" id="deleteButton">x</td>
       </tr>
     </table>
-    <div id="newStock">
-      <button v-on:click="submitStock">
-        <img src="@/assets/add.png" />
-      </button>
-      <input
-        type="text"
-        id="stockInputField"
-        value="Search ticker symbol."
-        v-on:focus="clearInput"
-        v-on:keydown.enter="submitStock"
+    <div id="rightBox">
+      <DateRangePicker
+        v-bind:intialDateUpdater="initialDateUpdater"
+        v-bind:finaldateUpdater="finalDateUpdater"
       />
+      <StockSelector :submitStock="submitStock" />
     </div>
   </div>
 </template>
 
 <script>
+import DateRangePicker from "../control-panel/date-range-selector/DateRangeSelector.vue";
+import StockSelector from "../control-panel/stock-selector/StockSelector.vue";
+
 export default {
   name: "StockPicker",
   props: {
     stocks: Array,
     dates: Object,
     updater: Function,
-    deleter: Function
+    deleter: Function,
+    initialDateUpdater: Function,
+    finalDateUpdater: Function
+  },
+  components: {
+    StockSelector,
+    DateRangePicker
   },
 
   methods: {
-    clearInput: function(event) {
-      if (event.srcElement.value == event.srcElement.defaultValue) {
-        event.srcElement.value = "";
-      }
-    },
     submitStock: function() {
       const symbol = document
         .getElementById("stockInputField")
@@ -63,6 +66,16 @@ export default {
         this.updater(symbol);
       }
     }
+  },
+
+  computed: {
+    percentageChange(stock) {
+      return (
+        (stock.initialSharePrice -
+          stock.finalSharePrice / stock.initialSharePrice) *
+        100
+      );
+    }
   }
 };
 </script>
@@ -74,18 +87,20 @@ export default {
 }
 
 .StockPicker {
-  background: var(--bg-element);
-  border: 1px var(--border) solid;
-  margin: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   padding: 0;
   height: 22em;
 }
 
+#rightBox {
+  grid-template-columns: 1fr;
+}
 table {
   width: 90%;
   border-collapse: collapse;
   border-bottom: 1px solid #454545;
-  margin: 5%;
+  margin: 1em;
 }
 
 thead {
@@ -104,37 +119,12 @@ td {
   border-bottom: 1px solid #454545;
 }
 
-img {
-  height: 2em;
-  width: 2em;
-}
-
-button {
-  padding: 1em;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  border: 1px var(--border) solid;
-  margin-left: 1em;
-}
-
-button:active {
-  background: #656565;
-}
-
 input {
   font-size: 1.5em;
   margin: 0rem;
   margin-left: 0.5rem;
   font-weight: 600;
   padding-left: 0.5em;
-}
-
-#newStock {
-  margin: 1em;
-  display: flex;
-  flex-direction: row;
-  width: 60%;
 }
 
 .errorMsg {

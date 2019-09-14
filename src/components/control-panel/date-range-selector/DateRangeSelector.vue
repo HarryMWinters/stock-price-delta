@@ -1,10 +1,11 @@
 <template>
   <section>
-    <b-field label="Select a date range...">
+    <label :style="labelStyle">Select a date range...</label>
+    <b-field>
       <b-datepicker
         placeholder="Click to select..."
         v-model="dates"
-        :style="style"
+        :style="datePickerStyle"
         @input="updateDates"
         range
       ></b-datepicker>
@@ -21,9 +22,15 @@ export default {
   },
   data() {
     return {
-      showWeekNumber: false,
-      style: {
-        width: "20em"
+      datePickerStyle: {
+        marginTop: "0em"
+      },
+      labelStyle: {
+        borderBottom: "1px solid #454545",
+        fontWeight: "bolder",
+        marginBottom: "0.5em",
+        padding: "0.4rem 0rem",
+        width: "100%"
       },
       dates: []
       // [startDate, endDate]
@@ -40,9 +47,11 @@ export default {
 
 <style scoped>
 section {
+  display: flex;
+  flex-direction: column;
   margin: 1em;
-}
-b-datepicker {
-  width: 2em;
+  margin-top: 1em;
+  width: 90%;
+  padding: 0;
 }
 </style>

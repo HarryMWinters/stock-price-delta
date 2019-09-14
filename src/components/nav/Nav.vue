@@ -1,7 +1,7 @@
 <template>
   <nav class="Nav">
     <button class="bio">About The Author</button>
-    <a
+    <!-- <a
       class="profesionalLink"
       href="https://www.linkedin.com/in/code-bio/"
       rel="noopener noreferrer"
@@ -16,7 +16,7 @@
       target="_blank"
     >
       <img src="@/assets/github_logo.png" />
-    </a>
+    </a>-->
   </nav>
 </template>
 
@@ -34,7 +34,20 @@ export default {
 * {
   background-color: #eeeeee;
   border: 0;
+  margin: 0;
 }
+/* 
+a {
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  height: 2rem;
+  border-radius: 0.75em;
+  padding: 0em;
+  margin: 0em;
+} */
 
 .Nav {
   display: flex;
@@ -46,8 +59,8 @@ export default {
 
 .profesionalLink {
   align-self: flex-end;
-  margin: 0.5rem;
-  padding: 0.5rem;
+  margin: 0rem;
+  padding: 0rem;
   height: 1.5rem;
   width: 10%;
   min-width: 4rem;
@@ -67,10 +80,5 @@ export default {
   min-width: 12rem;
   font-weight: bolder;
   font-size: 1em;
-}
-
-img {
-  height: 2rem;
-  border-radius: 0.75em;
 }
 </style>

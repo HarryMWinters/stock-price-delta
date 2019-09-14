@@ -2,13 +2,13 @@
   <div id="app">
     <Nav />
     <MultiGraph v-bind:chart="stackedChart" />
-    <ControlPanel
+    <StockPicker
       v-bind:stocks="stocks"
       v-bind:dates="dates"
-      v-bind:updater="stockUpdater"
-      v-bind:deleter="stockDeleter"
-      v-bind:initialDateUpdater="initialDateUpdater"
-      v-bind:finalDateUpdater="finalDateUpdater"
+      v-bind:updater="updater"
+      v-bind:deleter="deleter"
+      v-bind:intialDateUpdater="initialDateUpdater"
+      v-bind:finaldateUpdater="finalDateUpdater"
     />
   </div>
 </template>
@@ -17,15 +17,15 @@
 const axios = require("axios");
 
 import Nav from "./components/nav//Nav.vue";
-import ControlPanel from "./components/control-panel/ControlPanel.vue";
 import MultiGraph from "./components/mutli-graph/MultiGraph.vue";
+import StockPicker from "./components/stock-picker/StockPicker.vue";
 
 export default {
   name: "app",
   components: {
     Nav,
     MultiGraph,
-    ControlPanel
+    StockPicker
   },
 
   methods: {
