@@ -20,7 +20,7 @@
         <td v-if="showStock(stock)">$ {{stock.finalSharePrice}}</td>
         <td
           v-if="showStock(stock)"
-        >$ {{Math.round((stock.initialSharePrice - stock.finalSharePrice) * 100) / 100}}</td>
+        >$ {{Math.round((stock.finalSharePrice - stock.initialSharePrice) * 100) / 100}}</td>
         <td v-if="showStock(stock)">% {{percentageChange(stock)}}</td>
         <td v-on:click="deleter(stock)" id="deleteButton">x</td>
       </tr>
@@ -78,7 +78,7 @@ export default {
     },
     percentageChange: function(stock) {
       const percentage =
-        ((stock.initialSharePrice - stock.finalSharePrice) /
+        ((stock.finalSharePrice - stock.initialSharePrice) /
           stock.initialSharePrice) *
         100;
       return Math.round(percentage * 100) / 100;
