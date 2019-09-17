@@ -196,10 +196,40 @@ export default {
       // Have to fo this otherwise the layered histogram merges the states.
     },
     initialDateUpdater: function(date) {
-      this.dates.initial = date.toISOString().slice(0, 10);
+      if (this.stocks.length != 0) {
+        // Warn user that changing the date will erase their stocks.
+        // ToDo: Give the user the option to simply refresh all their stocks.
+        if (
+          confirm(
+            "Changing the date range will erase all loaded stock data. Continue?"
+          )
+        ) {
+          this.stocks = [];
+          this.stackedChart.series = [];
+          this.stackedChart.legend.data = [];
+          this.dates.initial = date.toISOString().slice(0, 10);
+        }
+      } else {
+        this.dates.initial = date.toISOString().slice(0, 10);
+      }
     },
     finalDateUpdater: function(date) {
-      this.dates.final = date.toISOString().slice(0, 10);
+      if (this.stocks.length != 0) {
+        // Warn user that changing the date will erase their stocks.
+        // ToDo: Give the user the option to simply refresh all their stocks.
+        if (
+          confirm(
+            "Changing the date range will erase all loaded stock data. Continue?"
+          )
+        ) {
+          this.stocks = [];
+          this.stackedChart.series = [];
+          this.stackedChart.legend.data = [];
+          this.dates.final = date.toISOString().slice(0, 10);
+        }
+      } else {
+        this.dates.final = date.toISOString().slice(0, 10);
+      }
     }
   },
   data() {
