@@ -137,11 +137,10 @@ export default {
       },
       stackedChart: {
         legend: {
-          data: ["VOO"]
+          data: []
+          // ToDo: Think about where the legend should be and whether it should become scrollabe if
+          // it contains many items.
         },
-        // title: {
-        //   text: "Price over time"
-        // },
         xAxis: [
           {
             type: "time",
