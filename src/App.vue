@@ -46,6 +46,11 @@ export default {
     },
     stockUpdater: function(symbol) {
       const apikey = "9TYZNYNMGKH18KZ7";
+      // ToDo: Update element in place rather then poping it out and repushing it.
+      this.stocks.push({
+        symbol: symbol,
+        isLoading: true
+      });
       axios
         .get("https://www.alphavantage.co/query", {
           params: {
@@ -62,8 +67,10 @@ export default {
               date
             ];
           });
+          this.stocks.pop();
           this.stocks.push({
             symbol: symbol,
+            isLoading: false,
             initialSharePrice: Number(
               response.data["Time Series (Daily)"][this.dates.initial][
                 "4. close"
@@ -94,22 +101,23 @@ export default {
             })
           });
           this.showIntro = false;
+        })
+        .catch(() => {
+          this.stocks.pop();
+          this.stocks.push({
+            symbol: symbol,
+            initialSharePrice: null,
+            finalSharePrice: null,
+            errMsg:
+              "Unable to retrieve data for " +
+              symbol +
+              " in range " +
+              this.dates.initial +
+              " to " +
+              this.dates.final +
+              "."
+          });
         });
-      // .catch(() => {
-      //   this.stocks.push({
-      //     symbol: symbol,
-      //     initialSharePrice: null,
-      //     finalSharePrice: null,
-      //     errMsg:
-      //       "Unable to retrieve data for " +
-      //       symbol +
-      //       " in range " +
-      //       this.dates.initial +
-      //       " to " +
-      //       this.dates.final +
-      //       "."
-      //   });
-      // });
     },
     stockDeleter: function(targetStock) {
       // Remove graph data
