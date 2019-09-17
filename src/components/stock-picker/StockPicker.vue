@@ -12,13 +12,17 @@
       </thead>
       <tr v-bind:key="stock.name" v-for="stock in stocks">
         <td>{{stock.symbol}}</td>
+
         <td v-if="stock.errMsg" class="errorMsg">Unable to retrieve data.</td>
-        <td v-if="!stock.errMsg">$ {{stock.initialSharePrice}}</td>
-        <td v-if="!stock.errMsg">$ {{stock.finalSharePrice}}</td>
+
+        <td v-if="stock.isLoading">Loading..</td>
+
+        <td v-if="showStock(stock)">$ {{stock.initialSharePrice}}</td>
+        <td v-if="showStock(stock)">$ {{stock.finalSharePrice}}</td>
         <td
-          v-if="!stock.errMsg"
+          v-if="showStock(stock)"
         >$ {{Math.round((stock.initialSharePrice - stock.finalSharePrice) * 100) / 100}}</td>
-        <td v-if="!stock.errMsg">% {{percentageChange(stock)}}</td>
+        <td v-if="showStock(stock)">% {{percentageChange(stock)}}</td>
         <td v-on:click="deleter(stock)" id="deleteButton">x</td>
       </tr>
     </table>
@@ -51,6 +55,12 @@ export default {
     DateRangePicker
   },
   methods: {
+    showStock: function(stock) {
+      if (!stock.errMsg & !stock.isLoading) {
+        return true;
+      }
+      return false;
+    },
     submitStock: function() {
       const symbol = document
         .getElementById("stockInputField")
