@@ -57,7 +57,6 @@ export default {
         .value.toUpperCase();
       document.getElementById("stockInputField").value =
         symbol == "SEARCH TICKER SYMBOL." ? "Search ticker symbol" : symbol;
-      const apikey = "9TYZNYNMGKH18KZ7";
 
       if (
         symbol &&
