@@ -51,12 +51,27 @@ export default {
         symbol: symbol,
         isLoading: true
       });
+      const today = new Date();
+      const threeMonthsAgo = new Date(
+        today.getFullYear(),
+        today.getMonth() - 3,
+        today.getDate()
+      );
+      const initialDate = new Date(
+        this.dates.initial.slice(0, 4),
+        this.dates.initial.slice(5, 7),
+        this.dates.initial.slice(8, 10)
+      );
+
+      const outputsize = initialDate > threeMonthsAgo ? "compact" : "full";
+
       axios
         .get("https://www.alphavantage.co/query", {
           params: {
             function: "TIME_SERIES_DAILY",
             symbol: symbol,
-            apikey: apikey
+            apikey: apikey,
+            outputsize: outputsize
           }
         })
         .then(response => {
