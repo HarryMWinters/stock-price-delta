@@ -13,8 +13,8 @@ all:
 build_prod:
 	docker build . -t $(DOCKER_NAME)/stock-price-delta:$(IMAGE_TAG)
 
-run_prod:
-	docker run -p 8000:80 $(DOCKER_NAME)/stock-price-delta:$(IMAGE_TAG)
+run_prod: 
+	docker run -p 8000:80 $(DOCKER_NAME)/stock-price-delta:latest
 
 run_dev:
 	npm run serve

@@ -4,9 +4,9 @@
       <thead>
         <tr>
           <th>Ticker Symbol</th>
-          <th>Initial Share Price</th>
-          <th>Final Share Price</th>
-          <th>Dollar Δ</th>
+          <th>Initial Share Price (USD)</th>
+          <th>Final Share Price (USD)</th>
+          <th>Dollar Δ (USD)</th>
           <th>% Δ</th>
         </tr>
       </thead>
@@ -16,12 +16,12 @@
         <td v-if="stock.errMsg" class="errorMsg">{{stock.errMsg}}</td>
         <td v-if="stock.isLoading">Loading..</td>
 
-        <td v-if="showStock(stock)">$ {{stock.initialSharePrice}}</td>
-        <td v-if="showStock(stock)">$ {{stock.finalSharePrice}}</td>
+        <td v-if="showStock(stock)">{{stock.initialSharePrice}}</td>
+        <td v-if="showStock(stock)">{{stock.finalSharePrice}}</td>
         <td
           v-if="showStock(stock)"
-        >$ {{Math.round((stock.finalSharePrice - stock.initialSharePrice) * 100) / 100}}</td>
-        <td v-if="showStock(stock)">% {{percentageChange(stock)}}</td>
+        >{{Math.round((stock.finalSharePrice - stock.initialSharePrice) * 100) / 100}}</td>
+        <td v-if="showStock(stock)">{{percentageChange(stock)}}</td>
         <td v-on:click="deleter(stock)" id="deleteButton">x</td>
       </tr>
     </table>

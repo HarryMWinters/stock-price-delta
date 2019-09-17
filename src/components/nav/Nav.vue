@@ -5,24 +5,19 @@
       <div class="navbar-item">
         <h1>Stock Analyzer</h1>
       </div>
-    </div>
-
-    <div class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" @click="toggleIntro">About</a>
-        <a
-          class="navbar-item"
-          href="https://github.com/HarryMWinters"
-          rel="noopener noreferrer"
-          target="_blank"
-        >Github</a>
-        <a
-          class="navbar-item"
-          href="https://www.linkedin.com/in/code-bio/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >LinkedIn</a>
-      </div>
+      <a class="navbar-item" @click="toggleIntro">About</a>
+      <a
+        class="navbar-item"
+        href="https://github.com/HarryMWinters"
+        rel="noopener noreferrer"
+        target="_blank"
+      >Github</a>
+      <a
+        class="navbar-item"
+        href="https://www.linkedin.com/in/code-bio/"
+        rel="noopener noreferrer"
+        target="_blank"
+      >LinkedIn</a>
     </div>
   </nav>
 </template>
