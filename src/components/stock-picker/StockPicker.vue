@@ -13,8 +13,7 @@
       <tr v-bind:key="stock.name" v-for="stock in stocks">
         <td>{{stock.symbol}}</td>
 
-        <td v-if="stock.errMsg" class="errorMsg">Unable to retrieve data.</td>
-
+        <td v-if="stock.errMsg" class="errorMsg">{{stock.errMsg}}</td>
         <td v-if="stock.isLoading">Loading..</td>
 
         <td v-if="showStock(stock)">$ {{stock.initialSharePrice}}</td>
