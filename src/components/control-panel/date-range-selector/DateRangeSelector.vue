@@ -6,6 +6,8 @@
         placeholder="Click to select..."
         v-model="dates"
         :style="datePickerStyle"
+        :min-date="minDate"
+        :max-date="maxDate"
         @input="updateDates"
         range
       ></b-datepicker>
@@ -21,6 +23,8 @@ export default {
     finalDateUpdater: Function
   },
   data() {
+    const today = new Date();
+
     return {
       datePickerStyle: {
         marginTop: "0em"
@@ -32,8 +36,13 @@ export default {
         padding: "0.4rem 0rem",
         width: "100%"
       },
-      dates: []
-      // [startDate, endDate]
+      dates: [],
+      minDate: new Date(
+        today.getFullYear() - 19,
+        today.getMonth(),
+        today.getDate()
+      ),
+      maxDate: new Date()
     };
   },
   methods: {
