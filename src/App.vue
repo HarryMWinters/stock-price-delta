@@ -166,24 +166,24 @@ export default {
             });
             this.showIntro = false;
           }
+        })
+        .catch(err => {
+          this.stocks.pop();
+          this.stocks.push({
+            symbol: symbol,
+            initialSharePrice: null,
+            finalSharePrice: null,
+            errMsg:
+              "Unable to retrieve data for " +
+              symbol +
+              " in range " +
+              this.dates.initial +
+              " to " +
+              this.dates.final +
+              "."
+          });
+          throw err;
         });
-      // .catch(err => {
-      //   console.log(err);
-      //   this.stocks.pop();
-      //   this.stocks.push({
-      //     symbol: symbol,
-      //     initialSharePrice: null,
-      //     finalSharePrice: null,
-      //     errMsg:
-      //       "Unable to retrieve data for " +
-      //       symbol +
-      //       " in range " +
-      //       this.dates.initial +
-      //       " to " +
-      //       this.dates.final +
-      //       "."
-      //   });
-      // });
     },
     stockDeleter: function(targetStock) {
       // Remove graph data
