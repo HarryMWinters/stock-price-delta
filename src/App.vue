@@ -78,7 +78,6 @@ export default {
           this.stocks.pop();
           if (response.data["Error Message"]) {
             this.stocks.pop();
-            console.log("Can't convert " + symbol);
             this.stocks.push({
               symbol: symbol,
               initialSharePrice: null,
@@ -99,6 +98,36 @@ export default {
                 date
               ];
             });
+
+            let loopCounter = 0;
+            while (!response.data["Time Series (Daily)"][this.dates.initial]) {
+              // Choose next date market is open.
+              loopCounter++;
+              if (loopCounter > 10) {
+                throw "Too many loop iterations attempting to find initial market open date.";
+              }
+              this.dates.initial = new Date(
+                this.dates.initial.slice(0, 4),
+                this.dates.initial.slice(5, 7),
+                Number(this.dates.initial.slice(8, 10)) + 1
+              )
+                .toISOString()
+                .slice(0, 10);
+            }
+            loopCounter = 0;
+            if (!response.data["Time Series (Daily)"][this.dates.final]) {
+              loopCounter++;
+              if (loopCounter > 10) {
+                throw "Too many loop iterations attempting to find final market open date.";
+              }
+              this.dates.initial = new Date(
+                this.dates.final.slice(0, 4),
+                this.dates.final.slice(5, 7),
+                Number(this.dates.final.slice(8, 10)) + 1
+              )
+                .toISOString()
+                .slice(0, 10);
+            }
             this.stocks.push({
               symbol: symbol,
               isLoading: false,
