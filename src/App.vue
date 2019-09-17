@@ -93,6 +93,7 @@ export default {
               }
             })
           });
+          this.showIntro = false;
         });
       // .catch(() => {
       //   this.stocks.push({
