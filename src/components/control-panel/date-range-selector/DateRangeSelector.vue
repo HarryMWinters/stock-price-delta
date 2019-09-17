@@ -8,6 +8,8 @@
         :style="datePickerStyle"
         :min-date="minDate"
         :max-date="maxDate"
+        :unselectable-days-of-week="unselectableDaysOfWeek"
+        :unselectable-dates="unselectableDates"
         @input="updateDates"
         range
       ></b-datepicker>
@@ -42,7 +44,10 @@ export default {
         today.getMonth(),
         today.getDate()
       ),
-      maxDate: new Date()
+      maxDate: new Date(),
+      unselectableDaysOfWeek: [0, 6],
+      // ToDO: Need to block out dates the market has been closed that _aren't_ weekends.
+      unselectableDates: []
     };
   },
   methods: {
