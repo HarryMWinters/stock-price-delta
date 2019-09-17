@@ -75,6 +75,7 @@ export default {
             priceArray: stockPrices
           });
           // Update graph info
+          this.stackedChart.legend.data.push(symbol);
           this.stackedChart.series.push({
             name: symbol,
             type: "line",
@@ -110,9 +111,12 @@ export default {
       // });
     },
     stockDeleter: function(targetStock) {
+      // Remove graph data
       const index = this.stocks.map(s => s.symbol).indexOf(targetStock.symbol);
       this.stocks.splice(index, 1);
       this.stackedChart.series.splice(index, 1);
+      this.stackedChart.legend.data.splice(index, 1);
+
       this.stackedChart = Object.assign({}, this.stackedChart);
       // Have to fo this otherwise the layered histogram merges the states.
     },
@@ -132,9 +136,12 @@ export default {
         final: null
       },
       stackedChart: {
-        title: {
-          text: "Price over time"
+        legend: {
+          data: ["VOO"]
         },
+        // title: {
+        //   text: "Price over time"
+        // },
         xAxis: [
           {
             type: "time",
