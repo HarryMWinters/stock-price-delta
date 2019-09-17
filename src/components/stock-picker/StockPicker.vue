@@ -73,6 +73,7 @@ export default {
         this.stocks.map(s => s.symbol).indexOf(symbol) == -1
       ) {
         this.updater(symbol);
+        document.getElementById("stockInputField").value = "";
       }
     },
     percentageChange: function(stock) {
