@@ -11,10 +11,10 @@ all:
 	@echo "Please specify make target"
 
 build_prod:
-	docker build . -t $(DOCKER_NAME)/better-parking-calculator:$(IMAGE_TAG)
+	docker build . -t $(DOCKER_NAME)/stock-price-delta:$(IMAGE_TAG)
 
 run_prod:
-	docker run -p 8000:80 $(DOCKER_NAME)/better-parking-calculator:$(IMAKE_TAG)
+	docker run -p 8000:80 $(DOCKER_NAME)/stock-price-delta:$(IMAGE_TAG)
 
 run_dev:
 	npm run serve

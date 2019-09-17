@@ -1,14 +1,14 @@
-# Build
-FROM node:8 as build
+# Straight outa https://vuejs.org/v2/cookbook/dockerize-vuejs-app.html
+# build stage
+FROM node:lts-alpine as build-stage
 WORKDIR /app
-COPY . ./
-# Yarn's parralelization of package installations 
-# should make it faster than NPM
-RUN yarn
-RUN yarn build
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
 
-# Set up server
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
+# production stage
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
