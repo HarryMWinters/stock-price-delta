@@ -63,12 +63,14 @@ Otherwise, standard vue and npm commands apply.
 
 ## Credits & Acknowledgments
 
-<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/"         title="Flaticon">www.flaticon.com</a></div>
+<ul>
+<li>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/"         title="Flaticon">www.flaticon.com</a></li>
 
-<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a></div>
+<li>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a></li>
 
-<div>Stock info provided by <a href="https://www.alphavantage.co"> Alpha Vantage </a>
+<li>Stock info provided by <a href="https://www.alphavantage.co"> Alpha Vantage </a></li>
 
-<div> I used <a href="https://www.echartsjs.com/en/index.html"> echarts </a> for plotting.
+<li> I used <a href="https://www.echartsjs.com/en/index.html"> echarts </a> for plotting.</li>
 
-<div> I used <a href="https://www.favicon.cc/"> echarts </a> for favicon generation.
+<li>I used <a href="https://www.favicon.cc/"> echarts </a> for favicon generation.</li>
+</ul>

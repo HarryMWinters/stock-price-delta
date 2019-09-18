@@ -77,7 +77,6 @@ export default {
         .then(response => {
           this.stocks.pop();
           if (response.data["Error Message"]) {
-            this.stocks.pop();
             this.stocks.push({
               symbol: symbol,
               initialSharePrice: null,
@@ -271,12 +270,6 @@ export default {
 
 <style>
 * {
-  --black: #020202;
-  --eggshell: #ffffff;
-  --lime: #8edce6;
-  --grey: #454545;
-  --forest: #4f9d69;
-
   --bg-element: #ffffff;
   --border: #45454538;
 
