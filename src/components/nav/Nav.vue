@@ -11,7 +11,7 @@
       </a>
       <a
         class="navbar-item"
-        href="https://github.com/HarryMWinters"
+        href="https://github.com/HarryMWinters/stock-price-delta"
         rel="noopener noreferrer"
         target="_blank"
       >

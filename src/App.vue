@@ -7,10 +7,28 @@
         <button class="delete" aria-label="delete" @click="toggleIntro"></button>
       </div>
       <div class="message-body">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum
-        <a>felis venenatis</a> efficitur. Aenean ac
-        <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
+        <p>
+          <strong>Hey! Thanks for visiting this site.</strong> I made this app after a certain
+          <a
+            href="https://www.google.com/search?q=guideline+financial"
+          >unnamed</a> financial institution was taking months to disburse my 401k and I got curious about how my portfolio would have behaved in the interim.
+          Poorly it turns out but now the world got a web app out of it so...winning?
+        </p>
+        <br />
+        <p>
+          Anyways, if you're here you probably wanna play with it. Choose the date range you're interested in where it says
+          <strong>"Select a date range.."</strong>and search for stocks by ticker symbol. I.E. TSLA for Tesla Motors or GOOG
+          for Google. Don't worry if you enter an unknown symbol. It'll let you know and you can delete and re-enter it.
+        </p>
+        <br />
+        <p>
+          Finally, there's a lot more I'd like to do with this app (but I probably won't). Check out the
+          <a
+            href="https://github.com/HarryMWinters/stock-price-delta"
+            rel="noopener noreferrer"
+            target="_blank"
+          >Github</a> link if your curious about what I would put in the next version.
+        </p>
       </div>
     </article>
     <MultiGraph v-else v-bind:chart="stackedChart" />
@@ -280,6 +298,7 @@ export default {
 body {
   height: 100%;
   background: var(--eggshell);
+  min-width: 748px;
 }
 
 #app {
@@ -287,5 +306,8 @@ body {
 }
 article {
   height: 18em;
+}
+p {
+  padding: 1em;
 }
 </style>
