@@ -1,4 +1,4 @@
-# A Stock Price Analyzer
+# A Stock Price Analyzer <a href="https://eloquent-panini-ff23b8.netlify.com/">Try Me!</a>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -6,10 +6,8 @@
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Docker Automated build](https://img.shields.io/docker/automated/harrymwinters/stock-price-delta)
-<a href="https://eloquent-panini-ff23b8.netlify.com/">
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b6dd4174-209a-4dac-9494-cc122bb18daa/deploy-status)](https://app.netlify.com/sites/eloquent-panini-ff23b8/deploys)
-![TryMe](https://img.shields.io/badge/Hosted-Try%20Me-green)
-</a>
+![Netlify Status](https://api.netlify.com/api/v1/badges/b6dd4174-209a-4dac-9494-cc122bb18daa/deploy-status)
+
 
 ## Table of Contents
 
