@@ -7,7 +7,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Docker Automated build](https://img.shields.io/docker/automated/harrymwinters/stock-price-delta)
 <a href=https://google.co>
-![TryMe](https://google.com)
+![TryMe](https://img.shields.io/badge/Hosted-Try%20Me-green)
 </a>
 
 ## Table of Contents
