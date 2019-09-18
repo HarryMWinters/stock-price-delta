@@ -26,6 +26,27 @@ When an unnamed finiancial institution took 3 months to transfer some significan
 
 This app allows one to specify a publically traded stock (or stocks) by ticker symbol and view the change in it's value during any window in the last 19 years.
 
+<div>
+    <h1>
+    Date range selector up to 19 years a ago.
+    </h1>
+    <img style="float: left;" 
+        src="https://github.com/harrymwinters/stock-price-delta/blob/master/media/Date Select.png" 
+        width=40%>
+    <h1> 
+    See the price trends over time 
+    </h1>
+    <img style="float: right;" 
+        src="https://github.com/harrymwinters/stock-price-delta/blob/master/media/Main Screen.png" 
+        width=80% >
+    <h1> 
+    And a summary of thier changes. 
+    </h1>
+    <img 
+    src="https://github.com/harrymwinters/stock-price-delta/blob/master/media/Summary.png"  
+        width=40% >
+</div>
+
 ## Getting Started
 
 If you're just interested in viewing the app running you can check it out [Here](https://--). If you want to run it locally, check out the make commands.
@@ -49,3 +70,5 @@ Otherwise, standard vue and npm commands apply.
 <div>Stock info provided by <a href="https://www.alphavantage.co"> Alpha Vantage </a>
 
 <div> I used <a href="https://www.echartsjs.com/en/index.html"> echarts </a> for plotting.
+
+<div> I used <a href="https://www.favicon.cc/"> echarts </a> for favicon generation.

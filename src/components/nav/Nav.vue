@@ -1,23 +1,32 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <nav class="myNavbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <img class="navbar-item" src="@/assets/bar-graph-with-dollar-sign.svg" />
       <div class="navbar-item">
         <h1>Stock Analyzer</h1>
       </div>
-      <a class="navbar-item" @click="toggleIntro">About</a>
+      <a class="navbar-item" @click="toggleIntro">
+        About
+        <img src="@/assets/subject.svg" class="mycon" />
+      </a>
       <a
         class="navbar-item"
         href="https://github.com/HarryMWinters"
         rel="noopener noreferrer"
         target="_blank"
-      >Github</a>
+      >
+        Github
+        <img src="@/assets/link.svg" class="mycon" />
+      </a>
       <a
         class="navbar-item"
         href="https://www.linkedin.com/in/code-bio/"
         rel="noopener noreferrer"
         target="_blank"
-      >LinkedIn</a>
+      >
+        LinkedIn
+        <img src="@/assets/link.svg" class="mycon" />
+      </a>
     </div>
   </nav>
 </template>
@@ -44,5 +53,10 @@ h1 {
 
 #introText {
   background-color: inherit;
+}
+
+.mycon {
+  height: 30%;
+  margin: 0.2em;
 }
 </style>
