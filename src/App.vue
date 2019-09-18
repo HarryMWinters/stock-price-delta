@@ -307,7 +307,7 @@ body {
 article {
   height: 18em;
 }
-p {
-  padding: 1em;
+article p {
+  padding: 0;
 }
 </style>
